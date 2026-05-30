@@ -135,7 +135,52 @@ void display(node *root){
     
 }
 
- 
+
+// deletion in binary search tree 
+// case : 1 delete leaf node // done
+/*
+case :2 delete non leaf node 
+case :3 delete root node 
+case :4 if no node avalible */ // done
+
+int delete (node *root,int x){
+    // handle 1  if no node in binary search tree 
+    if (root == NULL){
+        
+        return 0;
+    }else {
+           
+        // delete leaf node 
+        node *track;
+        node *prev = NULL;
+        track = root;
+        while(track->data!=x){
+            prev = track; // prevoius stored here
+            if(x<track->data){
+              track = track->left;
+            }else {
+                track = track->right;
+            }
+        }
+
+        // disconnect 
+        
+    if(x<prev->data){
+        prev->left = NULL;
+    }else {
+        prev->right = NULL;
+    }
+           
+    free(track);
+        return 1;
+    
+     
+
+}
+
+
+    }
+
 
   
 
@@ -146,7 +191,7 @@ int main (){
 
 
     while(1){
-printf("1==insert a data into binary search tree \n");
+printf("\n1==insert a data into binary search tree \n");
 printf("2==delete a data into binary search tree\n");// locked
 printf("3==search a node into a tree \n");// locked
 printf("4==display\n");
@@ -160,8 +205,15 @@ scanf("%d",&select);
 if(select == 1){
      root = insert(root);
 }else if(select == 2){
-    // delete(root);
-    printf("ERROR: functon not active now\n");
+     int x;
+    printf("\nwhat do you want to delete:");
+    scanf("%d",&x);
+    int y = delete(root,x);
+     if(y==1){
+        printf("data deleted sucessfully %d \n",x);
+     }else {
+        printf("ERROR: data not found %d \n",x);
+     }
 
 } else if (select == 3){
      node *track ; 
