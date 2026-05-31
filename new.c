@@ -149,7 +149,12 @@ int delete (node *root,int x){
         
         return 0;
     }else {
-           
+           if(root->data==x&&root->left == NULL&& root->right == NULL){
+            root->data= 0;
+            root = NULL;
+            return 1;
+           }
+           else{
         // delete leaf node 
         node *track;
         node *prev = NULL;
@@ -173,7 +178,7 @@ int delete (node *root,int x){
            
     free(track);
         return 1;
-    
+}
      
 
 }
