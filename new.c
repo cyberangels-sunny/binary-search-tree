@@ -18,6 +18,7 @@ node *create(){
     return temp;
 }
 
+int count = 0;
 node *insert(node *root){
     if(root == NULL){
         printf("====warning not have any node in tree \n ");
@@ -27,7 +28,9 @@ node *insert(node *root){
         scanf("%d",&temp->data);
         root = temp;
         printf("    (:  data injected sucessfully\n");
+        count++;
         return root;
+
     }
     else {
         int x ;
@@ -61,7 +64,7 @@ node *insert(node *root){
     }else{
         prev->right= newnode;  
     }
-    
+       count++;
          printf("    (:  data injected sucessfully\n");
          return root;
     }
@@ -118,47 +121,57 @@ void display(node *root){
     }
  }
 
- int search(node*root,int x){
-    if(root == NULL){
-       return 0;
-    }
+ 
 
-    if(x==root->data){
+int search(node*root,int x){
+    
+    
+    node *temp; // local declared 
+    temp = root;
+    while(temp != NULL){
+       if (x == temp->data){
         return 1;
-    }
-    search(root->left,x);
-    search(root->right,x);
-
-   if(x!=root->data){
-      return 0;
+       }
+   else if(x < temp->data){
+   temp = temp->left;
+   }else {
+    temp = temp->right;
    }
+
+}
+
+
+   
     
 }
+
+
+
 
 
 // deletion in binary search tree 
 // case : 1 delete leaf node // done
 /*
-case :2 delete non leaf node 
-case :3 delete root node 
+case :2 delete non leaf node  --work in process 
+case :3 delete root node  --- done
 case :4 if no node avalible */ // done
 
-int delete (node *root,int x){
+int delete (node *copy,int x){
     // handle 1  if no node in binary search tree 
-    if (root == NULL){
+    if (copy == NULL){
         
         return 0;
     }else {
-           if(root->data==x&&root->left == NULL&& root->right == NULL){
-            root->data= 0;
+           if(copy->data==x&&copy->left == NULL&& copy->right == NULL){
             root = NULL;
+            count--;
             return 1;
            }
            else{
         // delete leaf node 
         node *track;
         node *prev = NULL;
-        track = root;
+        track = copy;
         while(track->data!=x){
             prev = track; // prevoius stored here
             if(x<track->data){
@@ -177,6 +190,7 @@ int delete (node *root,int x){
     }
            
     free(track);
+    count--;
         return 1;
 }
      
@@ -185,6 +199,17 @@ int delete (node *root,int x){
 
 
     }
+
+
+//    int del2(node *copy, int x){
+//       int save; // save root data 
+//       int left , right ; // store left right 
+//       save = copy->data;
+//       int array[count];
+         
+    
+      
+//     }   currently working 
 
 
   
@@ -214,6 +239,7 @@ if(select == 1){
     printf("\nwhat do you want to delete:");
     scanf("%d",&x);
     int y = delete(root,x);
+    // int y = del2(root,x);  // testing function || temprary function 
      if(y==1){
         printf("data deleted sucessfully %d \n",x);
      }else {
@@ -236,6 +262,8 @@ if(select == 1){
    printf("\n");
 }else if(select == 4){
     display(root);
+    printf("\n");
+    printf("total %d node in tree",count);
     printf("\n");
 }else if(select == 5){
     printf("prefix notation of a binary search tree \n");
