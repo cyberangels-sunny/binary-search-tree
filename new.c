@@ -99,6 +99,7 @@ void display(node *root){
         infix(root->right);
     }
    }
+   
 
  void postfix(node *root){
     if(root == NULL){
@@ -145,7 +146,7 @@ int search(node*root,int x){
     
 }
 
-
+   
 
 
 
@@ -156,16 +157,23 @@ case :2 delete non leaf node  --work in process
 case :3 delete root node  --- done
 case :4 if no node avalible */ // done
 
+
+
 int delete (node *copy,int x){
     // handle 1  if no node in binary search tree 
+    int s = search(root,x);
+    if(s==1){
     if (copy == NULL){
-        
         return 0;
     }else {
            if(copy->data==x&&copy->left == NULL&& copy->right == NULL){
             root = NULL;
             count--;
             return 1;
+           }else if (copy->left!=NULL||copy->right!=NULL){
+            // non laef node condition 
+            
+
            }
            else{
         // delete leaf node 
@@ -182,6 +190,7 @@ int delete (node *copy,int x){
         }
 
         // disconnect 
+        if(track->left==NULL && track->right==NULL){
         
     if(x<prev->data){
         prev->left = NULL;
@@ -193,11 +202,12 @@ int delete (node *copy,int x){
     count--;
         return 1;
 }
+}
      
 
 }
-
-
+    }
+    
     }
 
 
@@ -210,6 +220,8 @@ int delete (node *copy,int x){
     
       
 //     }   currently working 
+
+
 
 
   
@@ -238,6 +250,9 @@ if(select == 1){
      int x;
     printf("\nwhat do you want to delete:");
     scanf("%d",&x);
+    int array[count];
+
+    infix1(root,x);
     int y = delete(root,x);
     // int y = del2(root,x);  // testing function || temprary function 
      if(y==1){
@@ -290,3 +305,11 @@ if(select == 1){
 }
  
 
+
+//  final changes to be add and commit 
+/* delete non leaf node 
+step 1 : find infix of a tree
+step 2 : store in array  
+step 3: store left or right 
+
+*/
