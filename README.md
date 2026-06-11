@@ -15,6 +15,12 @@
  
 
 <!-- working in process of deletion of non leaf node  -->
-
+<!-- perfectly leafnode deleted  --> 
+<p>version 4</p>
+<p>working in process of deletion of non leaf node</p>
+<p> perfectly leafnode deleted</p>
+<p>all isuess are fixed </p>
+<p>this is a perfect binary search tree </p>
+<p> it can be crash in input if you write instead of numerical of any thing  </p>
 
 // cyber angels --sunny

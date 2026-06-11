@@ -152,75 +152,70 @@ int search(node*root,int x){
 
 // deletion in binary search tree 
 // case : 1 delete leaf node // done
-/*
-case :2 delete non leaf node  --work in process 
-case :3 delete root node  --- done
-case :4 if no node avalible */ // done
+// case :2 delete non leaf node  -- done 
+// case :3 delete root node  --- done
+// case :4 if no node avalible */ // done
 
-
-
-int delete (node *copy,int x){
-    // handle 1  if no node in binary search tree 
-    int s = search(root,x);
-    if(s==1){
-    if (copy == NULL){
+int minval(node *root){
+    if (root==NULL){
         return 0;
-    }else {
-           if(copy->data==x&&copy->left == NULL&& copy->right == NULL){
-            root = NULL;
-            count--;
-            return 1;
-           }else if (copy->left!=NULL||copy->right!=NULL){
-            // non laef node condition 
-            
+    }
+    if(root->left == NULL){
+        return root->data;
+    }
+  
+       return minval(root->left);
+}
 
-           }
-           else{
-        // delete leaf node 
-        node *track;
-        node *prev = NULL;
-        track = copy;
-        while(track->data!=x){
-            prev = track; // prevoius stored here
-            if(x<track->data){
-              track = track->left;
-            }else {
-                track = track->right;
-            }
+
+node *delete (node *copy,int x){
+    // base case 
+    if(copy == NULL){
+        return copy;
+    }
+    if(copy->data==x){
+       // case of deletion 
+        // 0 child 
+        if(copy->left==NULL&&copy->right==NULL){  
+            count--;
+            free(copy);
+            return NULL;
+        }// 1 child ---> left child , --->right child 
+        else if (copy->left!=NULL&&copy->right==NULL){
+            count--;
+         node *temp = copy->left;
+         free(copy);
+         return temp;
+         
+        }else if (copy->left == NULL && copy->right!=NULL){
+           node *temp= copy->right;
+           count--;
+           free(copy);
+           return temp;
+           
+
+        }else if (copy->left!=NULL&&copy->right!=NULL){
+            
+            int min = minval(copy->right);
+            copy->data = min;
+            copy->right = delete(copy->right,min);
+            count--;
+            return copy;
+
         }
 
-        // disconnect 
-        if(track->left==NULL && track->right==NULL){
-        
-    if(x<prev->data){
-        prev->left = NULL;
+    }else if (copy->data>x){
+        copy->left = delete(copy->left,x);
     }else {
-        prev->right = NULL;
+        copy->right = delete(copy->right,x);
     }
-           
-    free(track);
-    count--;
-        return 1;
-}
-}
-     
 
-}
-    }
-    
+    return copy;
+
     }
 
 
-//    int del2(node *copy, int x){
-//       int save; // save root data 
-//       int left , right ; // store left right 
-//       save = copy->data;
-//       int array[count];
-         
-    
-      
-//     }   currently working 
-
+ 
 
 
 
@@ -250,16 +245,13 @@ if(select == 1){
      int x;
     printf("\nwhat do you want to delete:");
     scanf("%d",&x);
-    int array[count];
+  
 
-    infix1(root,x);
-    int y = delete(root,x);
-    // int y = del2(root,x);  // testing function || temprary function 
-     if(y==1){
-        printf("data deleted sucessfully %d \n",x);
-     }else {
-        printf("ERROR: data not found %d \n",x);
-     }
+   
+    root = delete(root,x);
+
+    
+     
 
 } else if (select == 3){
      node *track ; 
@@ -305,11 +297,4 @@ if(select == 1){
 }
  
 
-
-//  final changes to be add and commit 
-/* delete non leaf node 
-step 1 : find infix of a tree
-step 2 : store in array  
-step 3: store left or right 
-
-*/
+// now code ready to push on git hub cyber angels --sunny
